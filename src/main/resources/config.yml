@@ -27,6 +27,11 @@ server:
 #      validateCerts: false
 #      validatePeers: false
 
+#conf:
+dbUrl: test
+filePath: test
+
+
 # Logging settings.
 logging:
 
