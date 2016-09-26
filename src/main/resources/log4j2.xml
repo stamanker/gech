@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+
+	<Appenders>
+
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout>
+				<Pattern>%date{dd-MM-yy HH:mm:ss.SS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
+			</PatternLayout>
+		</Console>
+
+		<!-- ************************* GLOBAL ERRORS ************************* -->
+		<RollingFile name="ERROR" fileName="logs/err.log" filePattern="logs/err.%i.log">
+			<ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+			<PatternLayout>
+				<Pattern>%date{dd-MM-yy HH:mm:ss.SS} [%thread] %-5level %logger{36}.%M:%L %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="5"/>
+		</RollingFile>
+	
+		<RollingFile name="BUG" fileName="logs/bug.log" filePattern="logs/bug.%i.log">
+			<PatternLayout>
+				<Pattern>%date{dd-MM-yy HH:mm:ss.SS} [%thread] %-5level %class{0}.%M:%L %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="2"/>
+		</RollingFile>
+	
+		<RollingFile name="OTHER" fileName="logs/other.log" filePattern="logs/other.%i.log">>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB"/>
+			</Policies>
+			<PatternLayout>
+				<Pattern>%date{dd-MM-yy HH:mm:ss.SS} [%thread] %-5level %logger{36}.%M:%L %m%n</Pattern>
+			</PatternLayout>
+			<DefaultRolloverStrategy max="5"/>
+		</RollingFile>
+
+		<RollingFile name="PERF" fileName="logs/perf.log" filePattern="logs/perf.%i.log">
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB"/>
+			</Policies>
+			<PatternLayout>
+				<Pattern>%date{dd-MM-yy HH:mm:ss.SS} [%thread] %class{0}.%M:%L %m%n</Pattern>
+			</PatternLayout>
+			<DefaultRolloverStrategy max="2"/>
+		</RollingFile>
+
+		<RollingFile name="START" fileName="logs/start.log" filePattern="logs/start.%i.log">
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB"/>
+			</Policies>
+			<PatternLayout>
+				<Pattern>%date{dd-MM-yy HH:mm} [%thread] %logger{36}.%M:%L %m%n</Pattern>
+			</PatternLayout>
+			<DefaultRolloverStrategy max="1"/>
+		</RollingFile>
+
+		<RollingFile name="MAIN" fileName="logs/main.log" filePattern="logs/main.%i.log">
+			<Policies>
+				<SizeBasedTriggeringPolicy size="10 MB"/>
+			</Policies>
+			<PatternLayout>
+				<Pattern>%date{dd-MM-yy HH:mm:ss.SS} [%thread] %-5level %class{0}.%M:%L %m%n</Pattern>
+			</PatternLayout>
+			<DefaultRolloverStrategy max="5"/>
+		</RollingFile>
+
+	</Appenders>
+
+    <!-- ****************************************************************************** -->
+
+	<Loggers>
+		<Logger name="START"                                            additivity="false" level="INFO">
+			<AppenderRef ref="START" />
+			<AppenderRef ref="STDOUT" />
+		</Logger>
+
+		<Logger name="PERF"                                             additivity="false" level="DEBUG">
+			<AppenderRef ref="PERF" />
+		</Logger>
+	
+		<Logger name="ERROR"                                            additivity="false" level="INFO">
+			<AppenderRef ref="ERROR" />
+		</Logger>
+	
+		<Logger name="BUG"                                              additivity="false" level="INFO">
+			<AppenderRef ref="BUG" />
+		</Logger>
+
+		<Logger name="OTHER"                                           additivity="false" level="DEBUG">
+			<AppenderRef ref="OTHER" />
+			<AppenderRef ref="ERROR" />
+		</Logger>
+
+		<Logger name="MAIN"                                             additivity="false" level="DEBUG">
+			<AppenderRef ref="MAIN" />
+			<AppenderRef ref="ERROR" />
+		</Logger>
+
+		<Root level="DEBUG">
+		   <AppenderRef ref="OTHER" />
+		   <AppenderRef ref="ERROR" />
+		</Root>
+
+	</Loggers>
+
+</Configuration>

@@ -9,6 +9,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 /**
  * diagram: https://www.draw.io/?state=%7B%22ids%22:%5B%220B7DbFi6P344BbEpnbDNFWnBNaTA%22%5D,%22action%22:%22open%22,%22userId%22:%22105295493174936805218%22%7D#G0B7DbFi6P344BbEpnbDNFWnBNaTA
  * http://localhost:8080/api/v1/test?msg=a
@@ -17,6 +20,8 @@ import javax.ws.rs.core.Response;
 @Path("/api/v1")
 @Produces(MediaType.APPLICATION_JSON)
 public class Main extends Application<Conf> {
+
+    private static final Logger log = LogManager.getLogger(Main.class);
 
     GeoDB geoDB;
 
@@ -56,7 +61,7 @@ public class Main extends Application<Conf> {
 
     @Override
     public void run(Conf conf, Environment environment) throws Exception {
-        System.out.println("...");
+        log.debug("conf = [" + conf + "], environment = [" + environment + "]");
         environment.jersey().register(this);
         geoDB = new GeoDB(conf.dbUrl, conf.filePath).init();
     }
@@ -67,6 +72,7 @@ public class Main extends Application<Conf> {
     }
 
     public static void main(String[] args) throws Exception {
+        LogManager.getLogger("MAIN").info("Starting...");
         new Main().run(args);
     }
 }
