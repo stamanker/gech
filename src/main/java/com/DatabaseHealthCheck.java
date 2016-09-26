@@ -2,10 +2,6 @@ package com;
 
 import com.codahale.metrics.health.HealthCheck;
 
-/**
- * User: maxz
- * Date: 25.09.2016
- */
 public class DatabaseHealthCheck extends HealthCheck {
 
 //    private final Database database;

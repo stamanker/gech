@@ -1,9 +1,5 @@
 package com;
 
-/**
- * User: maxz
- * Date: 26.09.2016
- */
 public class Resp {
 
 
